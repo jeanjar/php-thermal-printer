@@ -1,0 +1,21 @@
+{
+    "name": "jeanjar/php-thermal-printer",
+    "description": "Fork da Biblioteca davidbooth/php-thermal-printer adaptada para Composer",
+    "license": "The MIT License (MIT)",
+    "authors": [
+        {
+            "name": "Jean Jar Pereira de Araújo",
+            "email": "jeanjpa@gmail.com"
+        },
+        {
+            "name": "David Booth",
+            "email": "https://github.com/davidbooth"
+        }
+    ],
+    "minimum-stability": "dev",    
+    "autoload": {
+        "psr-0": {
+            "Printer": "src/"
+        }
+    }
+}
