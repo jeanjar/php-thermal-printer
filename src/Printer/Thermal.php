@@ -1,22 +1,22 @@
 <?php
 
-/*
-  A simple printing class for the POS58III - Line Thermal Printer
+/**
 
-  Author: David Booth
-  Date:   8/18/2013
-
-  Author: Jean Jar Pereira de Araújo
-  Date: 08/09/2014
-
-  Hint: Permission problems try: chmod 666 /dev/usb/lp0
-
+ * @abstract A simple printing class for the POS58III - Line Thermal Printer
+ * 
+ * @author David Booth <github.com/davidbooth>
+ * @date 8/18/2013
+ * 
+ * @author Jean Jar Pereira de Araújo <jeanjpa@gmail.com>   
+ * @date 08/09/2014
+ * 
+ * @package Printer
+ * 
+ * @hint Permission problems try: chmod 666 /dev/usb/lp0
  */
-
 class Printer_Thermal
 {
 
-    const CHARS_PER_LINE = 32;
     const NEWLINE = "\x0A";
     const TRAIL_SPACE = "\x1B\x4A\x9B";
 
@@ -58,7 +58,7 @@ class Printer_Thermal
     {
 
         $len = strlen($string);
-        $diff = (self::CHARS_PER_LINE - $len) / 2;
+        $diff = (Printer_Config::$charsPerLine - $len) / 2;
 
         //Print leading spaces
         for ($i = 0; $i < $diff; $i++)
@@ -86,7 +86,7 @@ class Printer_Thermal
     public function printRule($char = '*', $newline = TRUE)
     {
 
-        for ($i = 0; $i < self::CHARS_PER_LINE; $i++)
+        for ($i = 0; $i < Printer_Config::$charsPerLine; $i++)
         {
             fwrite($this->handle, $char);
         }
@@ -110,10 +110,10 @@ class Printer_Thermal
         $r_len = strlen($right_string);
         $total_length = $l_len + $r_len;
 
-        if (($total_length) <= self::CHARS_PER_LINE)
+        if (($total_length) <= Printer_Config::$charsPerLine)
         {
 
-            $diff = self::CHARS_PER_LINE - ($total_length);
+            $diff = Printer_Config::$charsPerLine - ($total_length);
 
             fwrite($this->handle, $left_string);
 
@@ -127,7 +127,7 @@ class Printer_Thermal
         else
         {
             //Strings are too long, shorten left string
-            $diff = self::CHARS_PER_LINE - $total_length - 5;
+            $diff = Printer_Config::$charsPerLine - $total_length - 5;
             $left_string = substr($left_string, 0, ($diff));
             $left_string .= "...";
 

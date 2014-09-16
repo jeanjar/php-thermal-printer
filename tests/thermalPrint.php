@@ -1,12 +1,12 @@
 <?php
 
-include '../init.php';
-/**
- * $path = '/dev/usb/lp0'; <- it's a printer
- */
-$path = 'webPrintTest';
+include '../boot.php';
 
-$printer = new Printer_Web($path);
+$path = '/dev/usb/lp0'; //use this path to real print
+
+$path = 'thermalPrintTest';
+
+$printer = new Printer_Thermal($path);
 
 $printer->printCenteredString('Pedido Número #231');
 $printer->printRule();
@@ -20,10 +20,3 @@ $printer->printRule();
 $printer->printCenteredString('Documento sem valor fiscal');
 
 $printer->closePrinter();
-
-$file = file_get_contents($path);
-$file = str_replace(["\n", "\t"], ['<br/>', '&nbsp;'], $file);
-
-header('Content-type: text/html; charset=UTF-8');
-echo $file;
-die;
